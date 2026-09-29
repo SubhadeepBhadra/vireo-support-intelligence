@@ -138,44 +138,44 @@ if nav == "📊 Executive Overview":
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown("""
-        <div class="kpi-card">
-            <div class="metric-label">Reported SLA Breaches</div>
-            <div class="metric-value">2,440 <span style="font-size:15px; color:#dc2626; font-weight:600;">(21.8%)</span></div>
-            <div class="metric-delta-bad">Charged: Rs 8.54 Lakhs</div>
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 12px;">
+            <div style="font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">Reported SLA Breaches</div>
+            <div style="font-size: 26px; font-weight: 700; color: #0f172a; margin-top: 4px;">2,440 <span style="font-size:15px; color:#dc2626; font-weight: 600;">(21.8%)</span></div>
+            <div style="color: #dc2626; font-size: 13px; font-weight: 600; margin-top: 4px;">Charged: Rs 8.54 Lakhs</div>
         </div>
         """, unsafe_allow_html=True)
         
     with col2:
         st.markdown("""
-        <div class="kpi-card">
-            <div class="metric-label">Unjust Morning Attributions</div>
-            <div class="metric-value">1,566 <span style="font-size:15px; color:#2563eb; font-weight:600;">(64.2%)</span></div>
-            <div class="metric-delta-neutral">Overnight Queue Buildup</div>
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 12px;">
+            <div style="font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">Unjust Morning Attributions</div>
+            <div style="font-size: 26px; font-weight: 700; color: #0f172a; margin-top: 4px;">1,566 <span style="font-size:15px; color:#2563eb; font-weight: 600;">(64.2%)</span></div>
+            <div style="color: #2563eb; font-size: 13px; font-weight: 600; margin-top: 4px;">Overnight Queue Buildup</div>
         </div>
         """, unsafe_allow_html=True)
         
     with col3:
         st.markdown("""
-        <div class="kpi-card">
-            <div class="metric-label">Double-Dipping Leakage</div>
-            <div class="metric-value">Rs 4.37 Lakhs</div>
-            <div class="metric-delta-bad">95 Duplicate Orders</div>
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 12px;">
+            <div style="font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">Double-Dipping Leakage</div>
+            <div style="font-size: 26px; font-weight: 700; color: #0f172a; margin-top: 4px;">Rs 4.37 Lakhs</div>
+            <div style="color: #dc2626; font-size: 13px; font-weight: 600; margin-top: 4px;">95 Duplicate Orders</div>
         </div>
         """, unsafe_allow_html=True)
         
     with col4:
         st.markdown("""
-        <div class="kpi-card">
-            <div class="metric-label">Net Addressable Recovery</div>
-            <div class="metric-value">Rs 12.8 Lakhs/yr</div>
-            <div class="metric-delta-good">Zero New Hiring Required</div>
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 12px;">
+            <div style="font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">Net Addressable Recovery</div>
+            <div style="font-size: 26px; font-weight: 700; color: #0f172a; margin-top: 4px;">Rs 12.8 Lakhs/yr</div>
+            <div style="color: #16a34a; font-size: 13px; font-weight: 600; margin-top: 4px;">Zero New Hiring Required</div>
         </div>
         """, unsafe_allow_html=True)
 
     st.markdown("""
-    <div class="highlight-box">
-        <h4>⚡ Key Finding for Executive Leadership</h4>
-        <p><strong>The Morning Team is NOT underperforming.</strong> 64.2% of all recorded breaches (1,566 tickets) are overnight chat/email inquiries submitted between 22:00 and 06:00 IST when zero agents are rostered. Morning agents open their queues to already-expired tickets, answer them in an average of 4 minutes, but get dinged for an 8-hour breach due to the helpdesk attributing breaches to the resolving agent rather than queue arrival time.</p>
+    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-left: 5px solid #2563eb; padding: 18px 22px; border-radius: 8px; margin: 20px 0;">
+        <h4 style="color: #0f172a; font-size: 16px; font-weight: 700; margin: 0 0 8px 0;">⚡ Key Finding for Executive Leadership</h4>
+        <p style="color: #334155; font-size: 15px; line-height: 1.6; margin: 0;"><strong>The Morning Team is NOT underperforming.</strong> 64.2% of all recorded breaches (1,566 tickets) are overnight chat/email inquiries submitted between 22:00 and 06:00 IST when zero agents are rostered. Morning agents open their queues to already-expired tickets, answer them in an average of 4 minutes, but get dinged for an 8-hour breach due to the helpdesk attributing breaches to the resolving agent rather than queue arrival time.</p>
     </div>
     """, unsafe_allow_html=True)
 
