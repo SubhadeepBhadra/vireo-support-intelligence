@@ -1,0 +1,10 @@
+{
+  "total_tickets": 11200,
+  "reported_breaches": 2440,
+  "unjust_morning_breaches": 1566,
+  "fair_breaches": 1687,
+  "total_double_dipping_leakage_inr": 437418.0,
+  "classifier_accuracy": 0.8202950379973178,
+  "classifier_error_rate": 0.17970496200268216,
+  "test_sample_size": 2237
+}
