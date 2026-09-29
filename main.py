@@ -8,9 +8,9 @@ import sys
 import os
 import subprocess
 import webbrowser
+import socket
 import time
 
-# Ensure project root is in working directory and sys.path
 script_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_dir)
 sys.path.insert(0, os.path.join(script_dir, 'src'))
@@ -21,7 +21,25 @@ from leakage_detector import audit_policy_compliance
 from classifier import TicketClassifier
 from responder import ResponseGenerator
 
+def is_port_in_use(port):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        return s.connect_ex(('localhost', port)) == 0
+
+def find_available_port(start_port=8501, max_tries=10):
+    for p in range(start_port, start_port + max_tries):
+        if not is_port_in_use(p):
+            return p
+    return start_port
+
 def launch_dashboard(port=8501):
+    if is_port_in_use(port):
+        url = f"http://localhost:{port}"
+        print(f"\n✅ Streamlit server is already actively running on {url}!")
+        print(f"🌐 Opening dashboard in browser: {url}\n")
+        webbrowser.open(url)
+        return
+
+    port = find_available_port(port)
     url = f"http://localhost:{port}"
     app_path = os.path.join(script_dir, "app.py")
     print(f"⚡ Starting Streamlit Web Dashboard on {url}...")
@@ -46,7 +64,7 @@ def launch_dashboard(port=8501):
 
 def main():
     parser = argparse.ArgumentParser(description="Vireo Support Intelligence Tool")
-    parser.add_argument('--dashboard', action='store_true', help="Launch the interactive Web Dashboard and open http://localhost:8501 in browser")
+    parser.add_argument('--dashboard', action='store_true', help="Launch the interactive Web Dashboard and open browser")
     parser.add_argument('--audit', action='store_true', help="Run full SLA and policy compliance audit in terminal")
     parser.add_argument('--triage', type=str, help="Triage and draft response for a customer message text")
     parser.add_argument('--evaluate', action='store_true', help="Run ML benchmark on ticket dataset")
