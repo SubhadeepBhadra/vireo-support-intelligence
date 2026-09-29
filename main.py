@@ -11,6 +11,13 @@ import webbrowser
 import socket
 import time
 
+# Set UTF-8 encoding for Windows standard output if supported
+if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+
 script_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_dir)
 sys.path.insert(0, os.path.join(script_dir, 'src'))
@@ -34,19 +41,19 @@ def find_available_port(start_port=8501, max_tries=10):
 def launch_dashboard(port=8501):
     if is_port_in_use(port):
         url = f"http://localhost:{port}"
-        print(f"\n✅ Streamlit server is already actively running on {url}!")
-        print(f"🌐 Opening dashboard in browser: {url}\n")
+        print(f"\n[OK] Streamlit server is already actively running on {url}!")
+        print(f"[*] Opening dashboard in browser: {url}\n")
         webbrowser.open(url)
         return
 
     port = find_available_port(port)
     url = f"http://localhost:{port}"
     app_path = os.path.join(script_dir, "app.py")
-    print(f"⚡ Starting Streamlit Web Dashboard on {url}...")
+    print(f"[*] Starting Streamlit Web Dashboard on {url}...")
     
     def open_browser():
         time.sleep(1.5)
-        print(f"🌐 Opening browser: {url}")
+        print(f"[*] Opening browser: {url}")
         webbrowser.open(url)
         
     import threading
@@ -60,7 +67,7 @@ def launch_dashboard(port=8501):
     try:
         subprocess.run(cmd, cwd=script_dir)
     except KeyboardInterrupt:
-        print("\n👋 Dashboard stopped.")
+        print("\n[*] Dashboard stopped.")
 
 def main():
     parser = argparse.ArgumentParser(description="Vireo Support Intelligence Tool")
