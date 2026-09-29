@@ -1,12 +1,14 @@
 """
-Vireo Support Intelligence - Command Line Interface (CLI)
-Runs audits, evaluates models, triages individual tickets, and generates reports directly in terminal.
+Vireo Support Intelligence - Command Line Interface (CLI) & Launcher
+Runs audits, evaluates models, triages individual tickets, exports leakages, or launches the web dashboard.
 """
 
 import argparse
 import sys
 import os
-import json
+import subprocess
+import webbrowser
+import time
 
 # Add src to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'src')))
@@ -17,9 +19,32 @@ from leakage_detector import audit_policy_compliance
 from classifier import TicketClassifier
 from responder import ResponseGenerator
 
+def launch_dashboard(port=8501):
+    url = f"http://localhost:{port}"
+    print(f"⚡ Starting Streamlit Web Dashboard on {url}...")
+    
+    def open_browser():
+        time.sleep(1.5)
+        print(f"🌐 Opening browser: {url}")
+        webbrowser.open(url)
+        
+    import threading
+    threading.Thread(target=open_browser, daemon=True).start()
+    
+    cmd = [
+        sys.executable, "-m", "streamlit", "run", "app.py",
+        "--server.port", str(port),
+        "--server.headless", "false"
+    ]
+    try:
+        subprocess.run(cmd)
+    except KeyboardInterrupt:
+        print("\n👋 Dashboard stopped.")
+
 def main():
     parser = argparse.ArgumentParser(description="Vireo Support Intelligence Tool")
-    parser.add_argument('--audit', action='store_true', help="Run full SLA and policy audit")
+    parser.add_argument('--dashboard', action='store_true', help="Launch the interactive Web Dashboard and open http://localhost:8501 in browser")
+    parser.add_argument('--audit', action='store_true', help="Run full SLA and policy compliance audit in terminal")
     parser.add_argument('--triage', type=str, help="Triage and draft response for a customer message text")
     parser.add_argument('--evaluate', action='store_true', help="Run ML benchmark on ticket dataset")
     parser.add_argument('--export-leakages', type=str, help="Export double-dipping leakage list to CSV file")
@@ -27,8 +52,13 @@ def main():
     args = parser.parse_args()
     
     if len(sys.argv) == 1:
-        parser.print_help()
-        sys.exit(0)
+        print("No arguments provided. Launching web dashboard by default...")
+        launch_dashboard()
+        return
+
+    if args.dashboard:
+        launch_dashboard()
+        return
         
     data = load_and_preprocess_data()
     tickets_sla = calculate_sla_metrics(data['tickets'])

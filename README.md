@@ -37,16 +37,18 @@ pip install -r requirements.txt
 
 ---
 
-### Step 2: Run the Interactive Web Dashboard (Recommended) 🌐
+### Step 2: Launch the Web Dashboard (Opens Automatically) 🌐
 
-Start the local Streamlit application:
+Run the single-command launcher:
 
 ```bash
-python -m streamlit run app.py
+python run.py
 ```
 
-After running the command, open your web browser and visit:  
+This starts the Streamlit server and automatically opens the interactive dashboard in your default browser at:  
 👉 **`http://localhost:8501`**
+
+*(Alternatively, you can run `python main.py` or `python -m streamlit run app.py`).*
 
 #### Dashboard Features:
 1. **Executive Overview:** High-level KPI summary, SLA penalty trends, and shift cross-analysis with clean light-theme cards.
