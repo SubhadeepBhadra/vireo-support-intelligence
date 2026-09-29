@@ -27,47 +27,68 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom Styling
+# Custom Styling - Modern, High-Contrast Light Theme
 st.markdown("""
 <style>
-    .main {
-        background-color: #0f172a;
-        color: #f8fafc;
-    }
     .kpi-card {
-        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-        border: 1px solid #334155;
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 18px 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        margin-bottom: 12px;
     }
     .metric-value {
-        font-size: 28px;
+        font-size: 26px;
         font-weight: 700;
-        color: #38bdf8;
+        color: #0f172a;
+        margin-top: 4px;
     }
     .metric-label {
-        font-size: 13px;
-        color: #94a3b8;
+        font-size: 12px;
+        color: #64748b;
         text-transform: uppercase;
+        font-weight: 600;
         letter-spacing: 0.05em;
     }
     .metric-delta-bad {
-        color: #f87171;
+        color: #dc2626;
         font-size: 13px;
         font-weight: 600;
+        margin-top: 4px;
     }
     .metric-delta-good {
-        color: #4ade80;
+        color: #16a34a;
         font-size: 13px;
         font-weight: 600;
+        margin-top: 4px;
+    }
+    .metric-delta-neutral {
+        color: #2563eb;
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 4px;
     }
     .highlight-box {
-        background-color: #1e1b4b;
-        border-left: 4px solid #6366f1;
-        padding: 16px;
-        border-radius: 4px;
-        margin: 15px 0;
+        background-color: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-left: 5px solid #2563eb;
+        padding: 18px 22px;
+        border-radius: 8px;
+        margin: 20px 0;
+        color: #1e293b;
+    }
+    .highlight-box h4 {
+        color: #0f172a;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    .highlight-box p {
+        color: #334155;
+        font-size: 14.5px;
+        line-height: 1.6;
+        margin: 0;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -94,7 +115,7 @@ clf, gen = get_models(tickets)
 summary, channel_sum, shift_sum = generate_breach_summary(tickets)
 
 # Sidebar Navigation
-st.sidebar.image("https://img.icons8.com/isometric/100/headphones.png", width=60)
+st.sidebar.image("https://img.icons8.com/isometric/100/headphones.png", width=50)
 st.sidebar.title("Vireo Audio Ops")
 st.sidebar.caption("Support Desk Intelligence & Recovery Platform")
 
@@ -112,14 +133,14 @@ st.sidebar.metric("Identified Financial Waste", f"Rs {(audit['double_dipping']['
 # 1. EXECUTIVE OVERVIEW
 if nav == "📊 Executive Overview":
     st.title("Executive Intelligence Dashboard")
-    st.markdown("### Comprehensive Diagnostic of Support Operations & Financial Leakage")
+    st.markdown("##### Operational Diagnostic of Support Performance & Financial Leakage")
     
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown("""
         <div class="kpi-card">
             <div class="metric-label">Reported SLA Breaches</div>
-            <div class="metric-value">2,440 <span style="font-size:16px; color:#f87171;">(21.8%)</span></div>
+            <div class="metric-value">2,440 <span style="font-size:15px; color:#dc2626; font-weight:600;">(21.8%)</span></div>
             <div class="metric-delta-bad">Charged: Rs 8.54 Lakhs</div>
         </div>
         """, unsafe_allow_html=True)
@@ -128,8 +149,8 @@ if nav == "📊 Executive Overview":
         st.markdown("""
         <div class="kpi-card">
             <div class="metric-label">Unjust Morning Attributions</div>
-            <div class="metric-value">1,566 <span style="font-size:16px; color:#38bdf8;">(64.2%)</span></div>
-            <div class="metric-delta-good">Caused by Night Queue Lag</div>
+            <div class="metric-value">1,566 <span style="font-size:15px; color:#2563eb; font-weight:600;">(64.2%)</span></div>
+            <div class="metric-delta-neutral">Overnight Queue Buildup</div>
         </div>
         """, unsafe_allow_html=True)
         
@@ -154,7 +175,7 @@ if nav == "📊 Executive Overview":
     st.markdown("""
     <div class="highlight-box">
         <h4>⚡ Key Finding for Executive Leadership</h4>
-        <p><strong>The Morning Team is NOT failing.</strong> 64.2% of all recorded breaches (1,566 tickets) are overnight chat/email requests arriving between 22:00 and 06:00 IST when zero agents are rostered. Morning agents open their screens to already-expired tickets, answer them in an average of 4 minutes, but get dinged for an 8-hour breach due to helpdesk timestamp attribution flaw.</p>
+        <p><strong>The Morning Team is NOT underperforming.</strong> 64.2% of all recorded breaches (1,566 tickets) are overnight chat/email inquiries submitted between 22:00 and 06:00 IST when zero agents are rostered. Morning agents open their queues to already-expired tickets, answer them in an average of 4 minutes, but get dinged for an 8-hour breach due to the helpdesk attributing breaches to the resolving agent rather than queue arrival time.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -173,25 +194,25 @@ if nav == "📊 Executive Overview":
         )
         june_idx = monthly_trend[monthly_trend['created_month'] == '2025-06'].index
         if len(june_idx) > 0:
-            fig_trend.add_vline(x=june_idx[0] + 0.5, line_dash="dash", line_color="#38bdf8", annotation_text="Indore Night Shift Eliminated (June 2025)", annotation_position="top left")
-        fig_trend.update_layout(template="plotly_dark", height=350)
+            fig_trend.add_vline(x=june_idx[0] + 0.5, line_dash="dash", line_color="#0284c7", annotation_text="Indore Night Shift Eliminated (June 2025)", annotation_position="top left")
+        fig_trend.update_layout(template="plotly_white", height=380, margin=dict(t=30, b=30, l=10, r=10))
         st.plotly_chart(fig_trend, use_container_width=True)
 
     with col_r:
-        st.subheader("Breach Rate by Ticket Creation Shift")
+        st.subheader("Breach Rate by Ticket Creation Shift (%)")
         shift_channel = pd.crosstab(tickets['channel'], tickets['creation_shift'], values=tickets['is_breach'], aggfunc='mean') * 100
         fig_shift = px.bar(
             shift_channel, barmode='group',
             labels={'value': 'Breach Rate (%)', 'channel': 'Support Channel'},
-            color_discrete_sequence=['#3b82f6', '#10b981', '#f59e0b']
+            color_discrete_sequence=['#2563eb', '#10b981', '#f59e0b']
         )
-        fig_shift.update_layout(template="plotly_dark", height=350)
+        fig_shift.update_layout(template="plotly_white", height=380, margin=dict(t=30, b=30, l=10, r=10))
         st.plotly_chart(fig_shift, use_container_width=True)
 
 # 2. SLA BREACH ATTRIBUTION AUDIT
 elif nav == "🔍 SLA Breach Attribution Audit":
     st.title("SLA Breach Attribution Audit")
-    st.markdown("### Debunking the Morning Shift Myth & Uncovering True Queue Dynamics")
+    st.markdown("##### Isolating Overnight Queue Latency vs True Agent Handle Time")
     
     st.write("Vireo's standard helpdesk report attributes breaches to the **resolving agent**. When tickets arrive overnight with 0 night staff, morning agents pick up breached tickets and bear 100% of the statistical blame.")
     
@@ -203,21 +224,22 @@ elif nav == "🔍 SLA Breach Attribution Audit":
             breach_rate=('is_breach', lambda x: x.mean() * 100)
         ).reset_index()
         fig_hourly = go.Figure()
-        fig_hourly.add_trace(go.Bar(x=hourly['creation_hour_ist'], y=hourly['arrivals'], name='Arrivals', marker_color='#64748b'))
+        fig_hourly.add_trace(go.Bar(x=hourly['creation_hour_ist'], y=hourly['arrivals'], name='Ticket Arrivals', marker_color='#94a3b8'))
         fig_hourly.add_trace(go.Scatter(x=hourly['creation_hour_ist'], y=hourly['breach_rate'], name='Breach %', yaxis='y2', line=dict(color='#ef4444', width=3)))
         fig_hourly.update_layout(
-            template="plotly_dark",
+            template="plotly_white",
             xaxis=dict(title="Hour of Day (IST)"),
             yaxis=dict(title="Total Ticket Volume"),
             yaxis2=dict(title="Breach Rate (%)", overlaying='y', side='right', range=[0, 100]),
-            height=380
+            height=380,
+            margin=dict(t=30, b=30, l=10, r=10)
         )
         st.plotly_chart(fig_hourly, use_container_width=True)
         
     with col_b:
         st.subheader("Reported Breaches vs Fair In-Shift Breaches")
         comp_df = pd.DataFrame({
-            'Category': ['Standard Helpdesk Report', 'Fair Attribution (In-Shift Only)'],
+            'Category': ['Reported (Helpdesk)', 'Fair Attribution (In-Shift)'],
             'Breach Count': [summary['total_breaches'], summary['fair_breaches']],
             'SLA Credit Penalty (INR)': [summary['sla_credits_inr'], summary['fair_breaches'] * 350]
         })
@@ -226,7 +248,7 @@ elif nav == "🔍 SLA Breach Attribution Audit":
             color='Category', color_discrete_sequence=['#ef4444', '#10b981'],
             text_auto=True
         )
-        fig_comp.update_layout(template="plotly_dark", height=380, showlegend=False)
+        fig_comp.update_layout(template="plotly_white", height=380, showlegend=False, margin=dict(t=30, b=30, l=10, r=10))
         st.plotly_chart(fig_comp, use_container_width=True)
 
     st.subheader("Agent-by-Agent Fair Performance Matrix")
@@ -243,7 +265,7 @@ elif nav == "🔍 SLA Breach Attribution Audit":
 # 3. FINANCIAL LEAKAGE SENTINEL
 elif nav == "🚨 Financial Leakage Sentinel":
     st.title("Financial Leakage Sentinel")
-    st.markdown("### Detecting Double-Dipping, Unauthorized Goodwill, and Transfer Waste")
+    st.markdown("##### Detecting Double-Dipping, Unauthorized Goodwill, and Transfer Waste")
     
     tab1, tab2, tab3 = st.tabs(["Duplicate Refund + Replacement", "Goodwill Cap Violations (>Rs 500)", "Transfer & Routing Waste"])
     
@@ -265,7 +287,7 @@ elif nav == "🚨 Financial Leakage Sentinel":
 # 4. AI TRIAGE & RESPONSE SIMULATOR
 elif nav == "🤖 AI Triage & Response Simulator":
     st.title("AI Intent Classifier & Response Drafter")
-    st.markdown("### Real-time Ticket Categorization, Policy Enforcement, and Instant Drafts")
+    st.markdown("##### Real-Time Ticket Categorization, Policy Enforcement, and Instant Drafts")
     
     sample_queries = [
         "Select a sample or type your own below...",
@@ -322,7 +344,7 @@ elif nav == "🤖 AI Triage & Response Simulator":
 # 5. SHIFT & ROI SIMULATOR
 elif nav == "📈 Shift & ROI Simulator":
     st.title("Operational Shift & ROI Simulator")
-    st.markdown("### Model Financial Savings from Roster Realignment & AI Auto-Triage")
+    st.markdown("##### Model Financial Savings from Roster Realignment & AI Auto-Triage")
     
     st.write("Adjust operational levers to calculate immediate quarterly financial recovery without hiring new headcount.")
     
@@ -361,5 +383,5 @@ elif nav == "📈 Shift & ROI Simulator":
         st.metric("SLA Penalty Credit Reduction", f"Rs {sla_savings_q:,.0f} / quarter")
         st.metric("Transfer Cost Savings", f"Rs {transfer_savings_q:,.0f} / quarter")
         st.metric("Policy Leakage Prevention", f"Rs {(dd_savings_q + gw_savings_q):,.0f} / quarter")
-        st.markdown(f"### 💰 Total Quarterly Net Recovery: <span style='color:#4ade80;'>Rs {total_q_savings:,.0f}</span>", unsafe_allow_html=True)
-        st.markdown(f"#### 📅 Annualized Net Recovery: <span style='color:#38bdf8;'>Rs {total_q_savings * 4:,.0f}</span>", unsafe_allow_html=True)
+        st.markdown(f"### 💰 Total Quarterly Net Recovery: <span style='color:#16a34a;'>Rs {total_q_savings:,.0f}</span>", unsafe_allow_html=True)
+        st.markdown(f"#### 📅 Annualized Net Recovery: <span style='color:#2563eb;'>Rs {total_q_savings * 4:,.0f}</span>", unsafe_allow_html=True)
