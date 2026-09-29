@@ -14,10 +14,13 @@ def launch():
     print("⚡ Launching Vireo Support Intelligence Dashboard...")
     print("=" * 60)
     
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
+    
+    app_path = os.path.join(script_dir, "app.py")
     port = 8501
     url = f"http://localhost:{port}"
     
-    # Give a brief moment then open browser
     def open_browser():
         time.sleep(1.5)
         print(f"\n🌐 Opening dashboard in browser: {url}")
@@ -26,15 +29,14 @@ def launch():
     import threading
     threading.Thread(target=open_browser, daemon=True).start()
     
-    # Run Streamlit
     cmd = [
-        sys.executable, "-m", "streamlit", "run", "app.py",
+        sys.executable, "-m", "streamlit", "run", app_path,
         "--server.port", str(port),
         "--server.headless", "false"
     ]
     
     try:
-        subprocess.run(cmd)
+        subprocess.run(cmd, cwd=script_dir)
     except KeyboardInterrupt:
         print("\n👋 Dashboard stopped.")
 

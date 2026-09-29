@@ -8,9 +8,21 @@ import numpy as np
 from datetime import timedelta
 import os
 
+def find_data_dir():
+    candidates = [
+        os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data')),
+        os.path.abspath(os.path.join(os.getcwd(), 'data')),
+        os.path.abspath(os.path.join(os.getcwd(), 'vireo-support-intelligence', 'data')),
+        os.path.abspath(r'C:\Users\Subho\.gemini\antigravity-ide\scratch\vireo-support-intelligence\data')
+    ]
+    for c in candidates:
+        if os.path.isdir(c) and os.path.isfile(os.path.join(c, 'tickets.csv')):
+            return c
+    return candidates[0]
+
 def load_and_preprocess_data(data_dir=None):
     if data_dir is None:
-        data_dir = os.path.join(os.path.dirname(__file__), '..', 'data')
+        data_dir = find_data_dir()
     
     # Load raw files
     tickets_raw = pd.read_csv(os.path.join(data_dir, 'tickets.csv'))

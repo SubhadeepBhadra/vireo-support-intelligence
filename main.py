@@ -10,8 +10,10 @@ import subprocess
 import webbrowser
 import time
 
-# Add src to path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'src')))
+# Ensure project root is in working directory and sys.path
+script_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_dir)
+sys.path.insert(0, os.path.join(script_dir, 'src'))
 
 from data_loader import load_and_preprocess_data
 from sla_engine import calculate_sla_metrics, generate_breach_summary
@@ -21,6 +23,7 @@ from responder import ResponseGenerator
 
 def launch_dashboard(port=8501):
     url = f"http://localhost:{port}"
+    app_path = os.path.join(script_dir, "app.py")
     print(f"⚡ Starting Streamlit Web Dashboard on {url}...")
     
     def open_browser():
@@ -32,12 +35,12 @@ def launch_dashboard(port=8501):
     threading.Thread(target=open_browser, daemon=True).start()
     
     cmd = [
-        sys.executable, "-m", "streamlit", "run", "app.py",
+        sys.executable, "-m", "streamlit", "run", app_path,
         "--server.port", str(port),
         "--server.headless", "false"
     ]
     try:
-        subprocess.run(cmd)
+        subprocess.run(cmd, cwd=script_dir)
     except KeyboardInterrupt:
         print("\n👋 Dashboard stopped.")
 
