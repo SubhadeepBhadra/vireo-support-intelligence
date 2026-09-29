@@ -1,14 +1,14 @@
 # Vireo Support Intelligence ⚡
 
-Operational analysis, SLA attribution audit, policy compliance sentinel, and automated ticket triage toolkit for **Vireo Audio Support Desk**.
+Operational diagnostics, SLA attribution audit, policy compliance sentinel, and automated ticket triage toolkit for **Vireo Audio Support Desk**.
 
 ---
 
 ## 📌 Problem Overview
 
-Vireo Audio's customer support desk (44 agents across Bengaluru and Indore) faced two critical operational issues:
-1. **SLA Credit Line Surge:** First-response SLA breach penalties in the P&L roughly tripled since summer 2025, costing over Rs 8.5 Lakhs.
-2. **Morning Shift Blame:** Standard helpdesk reporting attributed the majority of breaches to Morning shift agents, leading to team demoralization.
+Vireo Audio's customer support desk (44 agents across Bengaluru and Indore) faced two critical operational challenges:
+1. **SLA Credit Line Surge:** First-response SLA breach penalties in the P&L roughly tripled since summer 2025, costing over Rs 8.5 Lakhs in automatic Rs 350 store credits.
+2. **Morning Shift Demoralization:** Standard helpdesk reporting attributed the majority of breaches to Morning shift agents, creating friction and false accountability.
 
 ### Key Analysis Findings
 - **The Morning Shift Fallacy:** **64.2% of all recorded breaches (1,566 out of 2,440)** were tickets submitted overnight (22:00 to 06:00 IST) when **zero agents** were scheduled following the June 2025 Indore night shift restructuring. Morning agents responded in an average of 4 minutes upon shift login, but the helpdesk's default reporting attributed the breach to the resolving agent rather than queue arrival time.
@@ -20,50 +20,80 @@ Vireo Audio's customer support desk (44 agents across Bengaluru and Indore) face
 
 ---
 
-## 🚀 Quickstart Guide
+## 🚀 Step-by-Step Running Instructions
 
-### 1. Installation
-Clone the repository and install dependencies:
+### Step 1: Clone the Repository & Set Up Environment
 
 ```bash
+# Clone the repository
 git clone https://github.com/SubhadeepBhadra/vireo-support-intelligence.git
+
+# Navigate into the project folder
 cd vireo-support-intelligence
+
+# Install lightweight dependencies
 pip install -r requirements.txt
 ```
 
-### 2. Launch the Web Dashboard
-Launch the interactive Streamlit dashboard:
+---
+
+### Step 2: Run the Interactive Web Dashboard (Recommended) 🌐
+
+Start the local Streamlit application:
 
 ```bash
 python -m streamlit run app.py
 ```
-Open **`http://localhost:8501`** in your browser.
 
-The dashboard provides 5 modules:
-- **Executive Overview:** High-level KPI summary, SLA penalty trends, and shift cross-analysis.
-- **SLA Breach Attribution Audit:** Hourly queue arrival vs agent handle time analysis.
-- **Financial Leakage Sentinel:** Searchable audit tables of double-dipping cases, goodwill limit overrides, and transfer friction.
-- **AI Triage & Response Drafter:** Real-time intent classification, target team routing, and policy-guarded draft generation.
-- **Shift & ROI Simulator:** Interactive scenario planner to model quarterly cost savings from roster adjustments.
+After running the command, open your web browser and visit:  
+👉 **`http://localhost:8501`**
 
-### 3. Command Line Interface (CLI)
+#### Dashboard Features:
+1. **Executive Overview:** High-level KPI summary, SLA penalty trends, and shift cross-analysis with clean light-theme cards.
+2. **SLA Breach Attribution Audit:** Hourly queue arrival vs agent handle time analysis, proving the true performance of Morning agents.
+3. **Financial Leakage Sentinel:** Searchable audit tables of double-dipping cases, goodwill limit overrides, and transfer friction.
+4. **AI Triage & Response Drafter:** Real-time intent classification, target team routing, and policy-guarded draft generation.
+5. **Shift & ROI Simulator:** Interactive scenario planner to model quarterly cost savings from roster adjustments.
+
+---
+
+### Step 3: Run Command Line Interface (CLI) Commands 💻
+
+You can execute audits, evaluations, and live ticket triage directly in your terminal:
 
 ```bash
-# Run full SLA and Policy Compliance Audit in terminal:
+# 1. Run full SLA and Policy Compliance Audit in terminal
 python main.py --audit
 
-# Test intent classifier and response drafter on a sample customer message:
+# 2. Test intent classifier and response drafter on a sample customer message
 python main.py --triage "My pulse 2 earbuds arrived yesterday and won't charge in the case"
 
-# Export the 95 duplicate double-dipping leakage orders to CSV:
+# 3. Export all 95 duplicate double-dipping leakage orders to CSV for Finance reconciliation
 python main.py --export-leakages double_dipping_orders.csv
+```
 
-# Run the 7-test unit suite:
+---
+
+### Step 4: Run Automated Unit Tests & Benchmarks 🧪
+
+```bash
+# Run the complete unit test suite (7/7 tests covering parsing, deduplication, SLA math, policy compliance)
 python tests/test_suite.py
 
-# Run the ML classifier statistical evaluation benchmark:
+# Run the full ML statistical evaluation benchmark across 11,183 labeled historical tickets
 python tests/evaluate_model.py
 ```
+
+---
+
+### 🔧 Port Troubleshooting (If Port 8501 is in use)
+
+If port 8501 is already occupied by a previous session, run on a different port:
+
+```bash
+python -m streamlit run app.py --server.port 8502
+```
+Then open `http://localhost:8502` in your browser.
 
 ---
 
@@ -80,7 +110,7 @@ vireo-support-intelligence/
 │   ├── support-policy.pdf     # Vireo Support Operating Policy v3.2
 │   ├── email-thread.txt       # Stakeholder context & email communications
 │   └── README.txt             # Data dictionary
-├── src/                       # Production Modules
+├── src/                       # Production Source Code
 │   ├── data_loader.py         # Fast parser, deduplicator & UTC-to-IST converter
 │   ├── sla_engine.py          # Fair SLA attribution & queue latency analyzer
 │   ├── leakage_detector.py    # Double-dipping, goodwill caps & transfer auditor
@@ -95,15 +125,15 @@ vireo-support-intelligence/
 ├── analysis_report.md         # Full Quantitative & Financial Diagnostic Report
 ├── submission-form.md         # Completed ATSLite Submission Pack
 ├── requirements.txt           # Lightweight dependencies
-└── README.md                  # Project documentation
+└── README.md                  # Project documentation & running instructions
 ```
 
 ---
 
-## 🧪 Model Performance
+## 🧪 Model Performance Summary
 
 - **Dataset Size:** 11,183 labeled customer messages
 - **Out-of-Sample Test Accuracy:** **82.03%**
 - **Test Error Rate:** **17.97%**
 - **Inference Latency:** **< 15 milliseconds**
-- **Cost per Month:** **Rs 0.00** (Runs locally on CPU)
+- **Runtime Cost:** **Rs 0.00** (Runs 100% locally on standard CPU)
